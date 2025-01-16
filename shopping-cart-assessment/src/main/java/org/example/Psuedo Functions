@@ -1,0 +1,58 @@
+
+
+
+// CartService
+ - properties
+   Cart
+
+ - methods
+
+    viewCart
+    ---------
+    > if (cart has something)
+        Do ( print Item and Quantity from HashMap)
+      else Do ( print 'No items currently in your cart')
+
+    addItem(Item)
+    ------------
+    > show available inventory of items as numbered menu
+    > user first enters int for item and then an int for quantity desired
+        - checks to make sure quantity entered is > than quantity available
+    > reduces inventory by quantity entered
+    > adds item / quantity to Cart Map
+
+   removeItem
+   ----------
+   > asks user what item they want to remove after showing the current cart state
+   > gives user the prompt to enter name of item
+   > checks for valid name
+        - if valid removes item from cart
+   > updates cart and inventory
+
+   checkoutCart
+   ------------
+   > Confirms with user they want to checkout cart
+    - mini menu with yes / no
+   > Displays the total item in cart and the cost
+   > Users selects to confirm purchase
+    - mini menu with yes / no
+   > Shows checkout successful
+   > Cart is emptied and user goes back to main menu
+
+
+// Cart
+  - properties
+    Item, quantity, HashMap
+
+
+
+// Inventory
+  - properties
+    ArrayList Item
+    quantity
+
+
+// Item
+   - properties
+     itemName, itemPrice
+     getter / setters
