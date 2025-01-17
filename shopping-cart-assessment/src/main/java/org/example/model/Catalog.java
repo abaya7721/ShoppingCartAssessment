@@ -28,6 +28,12 @@ public class Catalog {
         catalog.add(new Item("cheese", 4.50));
         catalog.add(new Item("paper towels", 2.50));
         catalog.add(new Item("sponges", 3.70));
+        catalog.add(new Item("burgers", 4.29));
+        catalog.add(new Item("chocolate", 2.79));
+        catalog.add(new Item("apple", 0.71));
+        catalog.add(new Item("dish soap", 1.70));
+        catalog.add(new Item("ice cream", 4.15));
+        catalog.add(new Item("lettuce", 1.05));
     }
 
     public void displayCatalog() {

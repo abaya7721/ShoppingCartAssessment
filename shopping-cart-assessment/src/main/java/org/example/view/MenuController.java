@@ -8,10 +8,6 @@ public class MenuController {
     ConsoleIO io = new ConsoleIO();
     CartService cartService = new CartService();
 
-    public enum menuChoice {
-        VIEW_CART, ADD_ITEM, REMOVE_ITEM, CHECKOUT, EXIT
-    }
-
     public void runShoppingCartApp() {
         boolean running = true;
         while (running) {
@@ -72,8 +68,8 @@ public class MenuController {
 
 
     public void displayCart() {
-        if (cartService.isCartEmpty()) {
-            io.displayMessage("      Cart is empty.");
+        if (showCartIsEmpty()) {
+
         } else {
             cartService.showCart();
             io.displayMessage("       Current Total \n" + "        $" + cartService.calculateTotal());
@@ -84,28 +80,37 @@ public class MenuController {
         cartService.showCart();
 
         String itemSelected = io.getString("Enter item name to remove item.");
-        cartService.removeItem(itemSelected);
+        cartService.removeItemEquals(itemSelected);
 
         io.displayMessage("Item removed from cart");
     }
 
     public void displayConfirmationMenu() {
         String confirm = "Enter    1(yes)   Any Key(no) \n >>";
-        displayCart();
-        String checkout = io.getString("Would you like to continue to checkout? \n " + confirm);
-        if (checkout.equals("1")) {
-            String confirmation = io.getString("Confirm Total" + " $" + cartService.calculateTotal() + "\n " + confirm);
+        if(!showCartIsEmpty()) {
+            String checkout = io.getString("Would you like to continue to checkout? \n " + confirm);
             if (checkout.equals("1")) {
-                checkoutCart();
+                displayCart();
+                String confirmation = io.getString("Confirm Total" + " $" + cartService.calculateTotal() + "\n " + confirm);
+                if (confirmation.equals("1")) {
+                    checkoutCart();
+                }
             }
         }
     }
 
     public void checkoutCart() {
+            io.displayMessage(" Check out successful. \n No items in cart.");
+            cartService.getReceipt();
+            cartService.getCart().clear();
+    }
 
-        io.displayMessage(" Check out successful. \n No items in cart.");
-        cartService.getReceipt();
-        cartService.getCart().clear();
-
+    public boolean showCartIsEmpty() {
+        boolean checkEmpty = cartService.isCartEmpty();
+        if (checkEmpty) {
+            io.displayMessage("      Cart is empty.");
+            io.displayMessage("      Cannot checkout.");
+        }
+        return checkEmpty;
     }
 }

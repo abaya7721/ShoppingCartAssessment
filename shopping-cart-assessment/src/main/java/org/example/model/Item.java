@@ -36,7 +36,7 @@ public class Item {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name.toLowerCase());
+        return Objects.hashCode(name);
     }
 
     @Override

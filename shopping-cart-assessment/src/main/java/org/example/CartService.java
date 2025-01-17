@@ -26,12 +26,13 @@ public class CartService {
     }*/
 
     public void addItem(int productNumber, int quantity) {
-        getCart().put(catalog.getCatalogItem(productNumber), quantity);
+        if(quantity > 0) {
+            getCart().put(catalog.getCatalogItem(productNumber), quantity);
+        }
     }
 
-
-    public void removeItem(String productName) {
-        getCart().keySet().removeIf(key -> key.hashCode() == productName.toLowerCase().hashCode());
+    public void removeItemEquals(String productName) {
+        getCart().keySet().removeIf(key -> key.getName().equals(productName));
     }
 
     public void showCart() {
@@ -52,7 +53,7 @@ public class CartService {
     }
 
     public void getReceipt() {
-        cart.showCartItems("===Receipt====");
+        cart.showCartItems("===   Receipt  ====");
     }
 
 

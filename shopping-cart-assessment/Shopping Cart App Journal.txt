@@ -1,0 +1,29 @@
+Documentation 
+Shopping Cart App
+
+Notable 
+
+Catalog class used a ArrayList of items to provide a selection for adding to cart.
+ArrayList seemed easier to allow user to select items based on index.
+Considering a way to make it an inventory which could be a HashMap.
+
+Cart class has a method with logic to decide the print out items in cart.
+Prints out with just the name from the item object in cart or
+to print out items with name, price, and quanity formatted to read like a record of purchase / reciept.
+
+This method is a sub-method in 2 CartService methods that reduces code duplication.
+
+To remove an item when a String is entered that is compared to the key name (Item name<String>).
+Removes if item exists in Map.
+Two ways to do this.
+	Using hashcode and the == operator.
+	Using the .equals to compare the Strings directly.
+
+
+Issue - Handling adding an item that already exists and negative quantity.
+
+Thought of how to handle this and solution was the containsKey method.
+
+When adding an item the logic checks for quantity greater than 0 and if same item exists in cart.
+If same item exists a confirmation is asked to update the item with new quantity.
+Item is updated with new quantity or left unchanged.
