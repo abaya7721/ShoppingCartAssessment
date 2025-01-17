@@ -8,7 +8,11 @@ public class Catalog {
 
 
     public Catalog() {
+        createCatalog();
+    }
 
+    public Item getCatalogItem(int index) {
+        return catalog.get(index);
     }
 
     public void createCatalog() {
@@ -22,11 +26,13 @@ public class Catalog {
         catalog.add(new Item("Socks [pair 1ct]", 3.70));
     }
 
-    public void displayCatalog(){
-        createCatalog();
-        System.out.println("Items Available for Procurement");
-        System.out.println(catalog);
+    public void displayCatalog() {
+        System.out.println("Available Items");
+        int i = 1;
+        for (Item item : catalog) {
+            System.out.print("Item " + i + "     " + item.toString());
+            i++;
+        }
     }
-
 
 }

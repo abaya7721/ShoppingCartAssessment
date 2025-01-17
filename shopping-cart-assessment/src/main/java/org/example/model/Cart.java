@@ -6,14 +6,20 @@ import java.util.Map;
 public class Cart {
     private Map<Item, Integer> cartActive = new HashMap<>();
 
-    public Cart(){
+    public Cart(Map<Item, Integer> cartActive) {
+        this.cartActive = cartActive;
     }
 
     public Map<Item, Integer> getCartActive() {
-        return cartActive;
+        return this.cartActive;
     }
 
-    public String showCartItems() {
-        return "Items in cart" + cartActive;
+    public void showCartItems() {
+        System.out.println("Items in cart \n");
+        for (Item e : cartActive.keySet()) {
+            System.out.println(e.getName() + " Quantity: " + cartActive.get(e));
+        }
     }
+
+
 }

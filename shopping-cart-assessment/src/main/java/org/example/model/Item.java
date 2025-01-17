@@ -28,6 +28,6 @@ public class Item {
 
     @Override
     public String toString() {
-        return name + " | " + "Price = " + price + "\n";
+        return name + " $" + price + "\n";
     }
 }
