@@ -1,7 +1,6 @@
 package main.java.org.example.view;
 
 import main.java.org.example.CartService;
-import main.java.org.example.model.Catalog;
 
 public class MenuController {
 
@@ -10,10 +9,6 @@ public class MenuController {
 
     public enum menuChoice {
         VIEW_CART, ADD_ITEM, REMOVE_ITEM, CHECKOUT, EXIT
-    }
-
-    public MenuController() {
-
     }
 
     public void runShoppingCartApp() {
@@ -35,6 +30,7 @@ public class MenuController {
                     break;
                 case 4:
                     //Checkout
+                    displayConfirmationMenu();
                     break;
                 case 5:
                     running = false;
@@ -48,10 +44,14 @@ public class MenuController {
     public void askUserForItemSelection() {
         cartService.accessCatalog().displayCatalog();
         int itemSelected = io.getInt("Select Item");
-        int quantity = io.getInt("Enter Quantity");
+        if (itemSelected < cartService.accessCatalog().getSize()) {
+            int quantity = io.getInt("Enter Quantity");
 
-        cartService.addItem(itemSelected - 1, quantity);
-        io.displayMessage("Item Added to Cart");
+            cartService.addItem(itemSelected - 1, quantity);
+            io.displayMessage("Item Added to Cart");
+        } else {
+            io.displayMessage("Not an item.");
+        }
     }
 
     public void displayCart() {
@@ -59,22 +59,37 @@ public class MenuController {
             io.displayMessage("Cart is empty.");
         } else {
             cartService.showCart();
-            io.displayMessage("Current Total \n"+cartService.calculateTotal());
+            io.displayMessage("Current Total \n" + "$" + cartService.calculateTotal());
         }
     }
 
-//    public void
-
     public void removeItemSelection() {
         cartService.showCart();
-        String itemSelected = io.getString("Enter item name to remove item.");
-        //int quantity = io.getInt("Enter Quantity");
 
+        String itemSelected = io.getString("Enter item name to remove item.");
         cartService.removeItem(itemSelected);
+
         io.displayMessage("Item removed from cart");
     }
 
-    public void displayConfirmationMenu(){
+    public void displayConfirmationMenu() {
+        String confirm = "Enter    1(yes)   Any Key(no) \n >>";
+        displayCart();
+        String checkout = io.getString("Would you like to continue to checkout? \n " + confirm);
+        if (checkout.equals("1")) {
+            String confirmation = io.getString("Confirm Total" + " $" + cartService.calculateTotal() + "\n " + confirm);
+            if (checkout.equals("1")) {
+                checkoutCart();
+            }
+        }
+    }
+
+    public void checkoutCart() {
+
+        io.displayMessage(" Check out successful. \n No items in cart.");
+        cartService.getReceipt();
+        cartService.getCart().clear();
+
 
     }
 }

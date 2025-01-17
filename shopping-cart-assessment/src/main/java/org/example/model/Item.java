@@ -1,5 +1,7 @@
 package main.java.org.example.model;
 
+import java.util.Objects;
+
 public class Item {
 
     private double price;
@@ -30,4 +32,24 @@ public class Item {
     public String toString() {
         return name + " $" + price + "\n";
     }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(name.toLowerCase());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) {
+            return true;
+        }
+        if(o instanceof Item) {
+            if( ((Item) o).getName().equals(this.name) && ((Item) o).getPrice() == (this.price) ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

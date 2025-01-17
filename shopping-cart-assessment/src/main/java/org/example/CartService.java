@@ -4,48 +4,50 @@ import main.java.org.example.model.Cart;
 import main.java.org.example.model.Catalog;
 import main.java.org.example.model.Item;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class CartService {
 
     private Catalog catalog = new Catalog();
-    private Cart cart = new Cart(new HashMap<>());
+    private Cart cart = new Cart();
 
 
-    
     public Catalog accessCatalog(){
         return catalog;
     }
 
-    public void addItem(int productNumber, int quantity) {
-        cart.getCartActive().put(catalog.getCatalogItem(productNumber), quantity);
+
+    public Map<Item, Integer> getCart(){
+        return cart.getCartMap();
     }
 
-    public Map<Item, Integer> removeItem(String productName) {
-        cart.getCartActive().keySet().removeIf(item -> item.getName().equals(productName) );
-        return cart.getCartActive();
+    public void addItem(int productNumber, int quantity) {
+        getCart().put(catalog.getCatalogItem(productNumber), quantity);
+    }
+
+    public void removeItem(String productName) {
+        getCart().keySet().removeIf( key -> key.hashCode()==productName.toLowerCase().hashCode());
     }
 
     public void showCart() {
-        cart.showCartItems();
+        cart.showCartItems("Items in cart");
     }
 
     public boolean isCartEmpty() {
-        return cart.getCartActive().isEmpty();
+        return getCart().isEmpty();
     }
 
     public double calculateTotal(){
         double total = 0;
-        for(Item key : cart.getCartActive().keySet() ) {
-            total += key.getPrice();
+        for(Item key : cart.getCartMap().keySet() ) {
+            total += key.getPrice()*cart.getCartMap().get(key);
         }
         return total;
     }
 
-
-
-
+    public void getReceipt(){
+        cart.showCartItems("===Receipt====");
+    }
 
 
 }

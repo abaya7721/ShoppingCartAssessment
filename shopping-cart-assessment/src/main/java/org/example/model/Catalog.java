@@ -15,15 +15,19 @@ public class Catalog {
         return catalog.get(index);
     }
 
+    public int getSize() {
+        return catalog.size();
+    }
+
     public void createCatalog() {
-        catalog.add(new Item("Yogurt [4ct]", 3.5));
-        catalog.add(new Item("Orange Juice", 2.75));
-        catalog.add(new Item("Cookies", 2.25));
-        catalog.add(new Item("Package-Carrots", 2));
-        catalog.add(new Item("Waffles", 3));
-        catalog.add(new Item("Cheese [0.5 lb]", 4.5));
-        catalog.add(new Item("Paper Towels [2ct]", 2.5));
-        catalog.add(new Item("Socks [pair 1ct]", 3.70));
+        catalog.add(new Item("yogurt", 3.50));
+        catalog.add(new Item("orange juice", 2.75));
+        catalog.add(new Item("cookies", 2.25));
+        catalog.add(new Item("package carrots", 2.00));
+        catalog.add(new Item("waffles", 3.00));
+        catalog.add(new Item("cheese", 4.50));
+        catalog.add(new Item("paper towels", 2.50));
+        catalog.add(new Item("socks pair", 3.70));
     }
 
     public void displayCatalog() {

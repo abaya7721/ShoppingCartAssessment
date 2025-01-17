@@ -6,20 +6,23 @@ import java.util.Map;
 public class Cart {
     private Map<Item, Integer> cartActive = new HashMap<>();
 
-    public Cart(Map<Item, Integer> cartActive) {
-        this.cartActive = cartActive;
+
+    public Map<Item, Integer> getCartMap() {
+        return cartActive;
     }
 
-    public Map<Item, Integer> getCartActive() {
-        return this.cartActive;
-    }
-
-    public void showCartItems() {
-        System.out.println("Items in cart \n");
-        for (Item e : cartActive.keySet()) {
-            System.out.println(e.getName() + " Quantity: " + cartActive.get(e));
+     public void showCartItems(String header) {
+        System.out.println(header);
+        if(header.equals("Items in cart")) {
+            for (Item e : cartActive.keySet()) {
+                System.out.println(e.getName());
+            }
+        }
+        else {
+            for (Item e : cartActive.keySet()) {
+                System.out.println(e.getName() + " - price: $" + e.getPrice() + " - x " + cartActive.get(e) + " each");
+            }
         }
     }
-
 
 }
