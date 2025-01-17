@@ -1,6 +1,7 @@
 package main.java.org.example.view;
 
 import main.java.org.example.CartService;
+import main.java.org.example.model.Item;
 
 public class MenuController {
 
@@ -43,23 +44,39 @@ public class MenuController {
 
     public void askUserForItemSelection() {
         cartService.accessCatalog().displayCatalog();
-        int itemSelected = io.getInt("Select Item");
-        if (itemSelected < cartService.accessCatalog().getSize()) {
-            int quantity = io.getInt("Enter Quantity");
 
-            cartService.addItem(itemSelected - 1, quantity);
-            io.displayMessage("Item Added to Cart");
+        int itemSelected = io.getInt("Select Item");
+        if (itemSelected <= cartService.accessCatalog().getSize()) {
+            int quantity = io.getInt("Enter Quantity");
+            Item item = cartService.accessCatalog().getCatalogItem(itemSelected - 1);
+            if (cartService.getCart().containsKey(item) && quantity > 0) {
+                String addItem = io.getString("Item already in cart. Would you like to update it?" +
+                        "\n       1(yes)   Any Key(no) ");
+                if (addItem.equals("1")) {
+                    cartService.addItem(itemSelected - 1, quantity);
+                    io.displayMessage("    Item Updated");
+
+                } else {
+                    io.displayMessage("    Item not updated");
+                }
+            } else if (!cartService.getCart().containsKey(item) && quantity > 0) {
+                cartService.addItem(itemSelected - 1, quantity);
+                io.displayMessage("    Item Added to Cart");
+            } else {
+                io.displayMessage("Error during quantity input.");
+            }
         } else {
-            io.displayMessage("Not an item.");
+            io.displayMessage("     Not an item!");
         }
     }
 
+
     public void displayCart() {
         if (cartService.isCartEmpty()) {
-            io.displayMessage("Cart is empty.");
+            io.displayMessage("      Cart is empty.");
         } else {
             cartService.showCart();
-            io.displayMessage("Current Total \n" + "$" + cartService.calculateTotal());
+            io.displayMessage("       Current Total \n" + "        $" + cartService.calculateTotal());
         }
     }
 
@@ -89,7 +106,6 @@ public class MenuController {
         io.displayMessage(" Check out successful. \n No items in cart.");
         cartService.getReceipt();
         cartService.getCart().clear();
-
 
     }
 }

@@ -12,8 +12,9 @@ public class ConsoleIO {
 
     public int getInt(String prompt) {
         displayMessage(prompt);
+        System.out.print(" Enter > ");
         String selection = scanner.next();
-        int intSelect = 0;
+        int intSelect = -1;
         try {
             intSelect = Integer.parseInt(selection);
         } catch (Exception e) {

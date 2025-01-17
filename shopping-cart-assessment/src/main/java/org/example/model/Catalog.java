@@ -27,14 +27,14 @@ public class Catalog {
         catalog.add(new Item("waffles", 3.00));
         catalog.add(new Item("cheese", 4.50));
         catalog.add(new Item("paper towels", 2.50));
-        catalog.add(new Item("socks pair", 3.70));
+        catalog.add(new Item("sponges", 3.70));
     }
 
     public void displayCatalog() {
-        System.out.println("Available Items");
+        System.out.println("-----Available Items-----");
         int i = 1;
         for (Item item : catalog) {
-            System.out.print("Item " + i + "     " + item.toString());
+            System.out.print("       Item " + i + "     " + item.toString());
             i++;
         }
     }
